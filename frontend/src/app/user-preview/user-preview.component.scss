@@ -1,0 +1,30 @@
+/* Wrapper for the user list */
+.user-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.user-card {
+  flex: 1 1 calc(33.33% - 16px);
+  border: 1px solid black !important;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
+    rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  min-width: 250px;
+  background-color: #f9f9f9;
+}
+
+.user-card .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-text {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
