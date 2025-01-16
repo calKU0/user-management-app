@@ -1,12 +1,16 @@
-<div id="previewUserList" class="mb-5 row justify-content-center">
-  <div
-    *ngFor="let user of users"
-    class="card col-md-2 mx-2 user-item mb-3 border p-3 rounded"
-  >
-    <div class="card-body">
-      <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
-      <p class="card-text">Email: {{ user.email }}</p>
-      <p class="card-text">Hasło: {{ user.password }}</p>
+<div class="container mt-5">
+  <div id="previewUserList" class="user-list">
+    <div *ngFor="let user of users" class="user-card">
+      <div class="card-body">
+        <h5 class="card-title pb-3">
+          {{ user.firstName }} {{ user.lastName }}
+        </h5>
+        <p class="card-text">Email: {{ user.email }}</p>
+        <p class="card-text">Hasło: {{ user.password }}</p>
+        <p class="card-text">Płeć: {{ user.gender }}</p>
+        <p class="card-text">Aktywny: {{ user.active ? "Tak" : "Nie" }}</p>
+        <p class="card-text">Komentarz: {{ user.comment }}</p>
+      </div>
     </div>
   </div>
 </div>

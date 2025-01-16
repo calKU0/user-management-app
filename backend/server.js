@@ -4,15 +4,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const dbUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Połączenie z MongoDB
+const dbUri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
+
 mongoose
   .connect(dbUri, {
     useNewUrlParser: true,
@@ -21,23 +20,26 @@ mongoose
   .then(() => console.log("Połączono z MongoDB"))
   .catch((err) => console.log("Błąd połączenia z MongoDB:", err));
 
-// Model użytkownika
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
   password: String,
+  gender: {
+    type: String,
+    enum: ["Mężczyzna", "Kobieta"],
+    default: "Mężczyzna",
+  },
+  active: { type: Boolean, default: false },
+  comment: { type: String, default: "" },
 });
 
 const User = mongoose.model("User", userSchema);
 
-// Endpoints
-
-// Endpoint do pobierania wszystkich użytkowników
 app.get("/api/users", async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json(users); // Zwracamy wszystkich użytkowników
+    res.status(200).json(users);
   } catch (err) {
     res
       .status(400)
@@ -45,16 +47,19 @@ app.get("/api/users", async (req, res) => {
   }
 });
 
-// Endpoint do dodawania użytkownika
 app.post("/api/users", async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, gender, active, comment } =
+      req.body;
 
     const newUser = new User({
       firstName,
       lastName,
       email,
       password,
+      gender,
+      active,
+      comment,
     });
 
     await newUser.save();
@@ -66,14 +71,14 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-// Endpoint do edytowania użytkownika
 app.put("/api/users/:id", async (req, res) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, gender, active, comment } =
+      req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
-      { firstName, lastName, email, password },
+      { firstName, lastName, email, password, gender, active, comment },
       { new: true }
     );
 
@@ -92,7 +97,6 @@ app.put("/api/users/:id", async (req, res) => {
   }
 });
 
-// Uruchomienie serwera
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Serwer działa na porcie ${PORT}`);

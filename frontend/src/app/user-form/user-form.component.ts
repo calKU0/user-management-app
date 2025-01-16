@@ -17,6 +17,9 @@ export class UserFormComponent {
     lastName: '',
     email: '',
     password: '',
+    gender: 'male',
+    active: false,
+    comment: '',
   };
 
   constructor(private userService: UserService) {}
@@ -30,14 +33,22 @@ export class UserFormComponent {
     ) {
       this.userService.saveUser(this.user).subscribe(
         () => {
-          alert('Użytkownik dodany!');
+          this.user = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            gender: 'male',
+            active: false,
+            comment: '',
+          };
         },
         (error) => {
           alert('Błąd dodawania użytkownika');
         }
       );
     } else {
-      alert('Proszę wypełnić wszystkie pola.');
+      alert('Proszę wypełnić wymagane pola.');
     }
   }
 }
