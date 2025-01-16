@@ -67,12 +67,12 @@ npm install
    ```
    This will start the backend server on http://localhost:5000.
 
-### Run the Backend Server
+### Run the Frontend WebApp
 
-1. Go back to the root directory of your Angular application:
+1. Open new terminal and go to frontend of your Angular application:
 
    ```bash
-   cd ..
+   cd frontend
    ```
 
 2. Install dependencies for the frontend:
