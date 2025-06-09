@@ -1,6 +1,6 @@
 # User Management Application
 
-> 🎓 Status: Academic Project — developed as part of Programming lab at University of Economics in Carcow.
+> 🎓 Status: Academic Project — developed as part of Programming lab at University of Economics in Cracow.
 
 This is a simple User Management application built with Angular and a mock backend server. It allows users to register new users and view the list of registered users. The application also provides features like viewing user details and updating user information.
 
